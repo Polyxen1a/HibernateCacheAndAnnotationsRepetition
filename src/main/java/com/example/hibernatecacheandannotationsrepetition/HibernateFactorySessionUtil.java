@@ -20,6 +20,7 @@ public class HibernateFactorySessionUtil {
                 sessionFactory = configuration.buildSessionFactory(builder.build());
             } catch (Exception e) {
                 System.out.println("Error! " + e);
+                System.out.println();
             }
         }
         return sessionFactory;

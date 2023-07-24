@@ -2,9 +2,6 @@ package com.example.hibernatecacheandannotationsrepetition;
 
 
 import javax.persistence.*;
-import javax.print.attribute.standard.DateTimeAtCreation;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -22,16 +19,15 @@ public class User {
     private String login;
     @Column(name = "password")
     private String password;
-    @Column(name = "login")
-    private Date timeOfCreation;
     @Column(name = "time_of_modification")
     private Date timeOfModification;
 
     @Column(name = "roles")
     @ManyToMany(cascade = { CascadeType.ALL })
     private Set<Role> roles = new HashSet<>();
+    private Object timeOfCreation;
 
-    public User() {
+    public User(String john, String doe) {
     }
 
     public User(int id, String name, String login) {
@@ -97,5 +93,8 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, login, password, timeOfCreation, timeOfModification, roles);
+    }
+
+    public void setLastName(String smith) {
     }
 }

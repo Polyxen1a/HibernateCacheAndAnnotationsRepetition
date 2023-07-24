@@ -3,6 +3,8 @@ package com.example.hibernatecacheandannotationsrepetition;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class RoleDAOImpl implements RoleDAO {
     @Override
     public void createNewRole(Role role) {
@@ -32,5 +34,20 @@ public class RoleDAOImpl implements RoleDAO {
             session.delete(role);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void addRole(Role newRole) {
+
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return null;
+    }
+
+    @Override
+    public void updateRole(Role roleToUpdate) {
+
     }
 }

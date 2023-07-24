@@ -57,4 +57,19 @@ public class UserDAOImpl implements UserDAO {
         }
 
     }
+
+    @Override
+    public void addUser(User newUser) {
+
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User userToUpdate) {
+
+    }
 }

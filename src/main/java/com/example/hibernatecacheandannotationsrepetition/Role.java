@@ -17,7 +17,7 @@ public class Role {
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
-    private List<Role> employees = new ArrayList<>();
+    private List<User> employees = new ArrayList<>();
 
 
     public Role(String roleName) {
@@ -51,8 +51,19 @@ public class Role {
         return id == role.id && roleName.equals(role.roleName);
     }
 
+    public List<User> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, roleName);
+    }
+
+    public void setName(String superuser) {
     }
 }
