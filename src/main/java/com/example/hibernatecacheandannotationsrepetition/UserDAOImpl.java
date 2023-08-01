@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class UserDAOImpl implements UserDAO {
+public abstract class UserDAOImpl implements UserDAO {
     @Override
     public void create(User user) {
         try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession();) {
@@ -19,7 +19,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByID(int id) {
+    public User getuserByID(int id) {
         return HibernateFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
     }
 
@@ -55,21 +55,5 @@ public class UserDAOImpl implements UserDAO {
             session.delete(user);
             transaction.commit();
         }
-
-    }
-
-    @Override
-    public void addUser(User newUser) {
-
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public void updateUser(User userToUpdate) {
-
     }
 }

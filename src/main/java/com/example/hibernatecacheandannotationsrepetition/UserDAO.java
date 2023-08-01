@@ -8,6 +8,8 @@ public interface UserDAO {
 
     User getUserByID(int id);
 
+    User getuserByID(int id);
+
     List<User> getUsersByRole(Role role);
 
     List<User> getEveryone();
