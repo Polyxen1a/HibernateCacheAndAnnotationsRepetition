@@ -11,7 +11,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     @Override
     public void create(User user) {
-        try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession();) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {
             Transaction transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -19,20 +19,25 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getUserByID(int id) {
+        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
+    }
+
+    @Override
     public User getuserByID(int id) {
-        return HibernateFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
+        return null;
     }
 
     @Override
     public List<User> getUsersByRole(Role role) {
-        List<User> users = (List<User>) HibernateFactorySessionUtil.getSessionFactory()
+        List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
                 .openSession().createQuery("SELECT id FROM User WHERE roles = :role");
         return users;
     }
 
     @Override
     public List<User> getEveryone() {
-        List<User> users = (List<User>) HibernateFactorySessionUtil.getSessionFactory()
+        List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
                 .openSession().createQuery("FROM User").list();
 
         return users;
@@ -40,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updatePersonById(User user) {
-        try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             user.setTimeOfModification(new Date());
             session.update(user);
@@ -50,10 +55,25 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(User user) {
-        try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(user);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void addUser(User newUser) {
+
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User userToUpdate) {
+
     }
 }

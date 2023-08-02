@@ -5,9 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateFactorySessionUtil {
+public class HibernateSessionFactorySessionUtil {
     private static SessionFactory sessionFactory;
-    private HibernateFactorySessionUtil() {
+    private HibernateSessionFactorySessionUtil() {
     }
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -19,8 +19,9 @@ public class HibernateFactorySessionUtil {
                         applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
             } catch (Exception e) {
-                System.out.println("Error! " + e + e.printStackTrace());
+                System.out.println("Error! " + e);
                 System.out.println();
+                e.printStackTrace();
             }
         }
         return sessionFactory;

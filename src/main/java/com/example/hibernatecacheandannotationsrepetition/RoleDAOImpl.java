@@ -8,7 +8,7 @@ import java.util.List;
 public class RoleDAOImpl implements RoleDAO {
     @Override
     public void createNewRole(Role role) {
-        try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession();) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {
             Transaction transaction = session.beginTransaction();
             session.save(role);
             transaction.commit();
@@ -17,19 +17,19 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role getRoleByID(int id) {
-        return HibernateFactorySessionUtil.getSessionFactory().openSession().get(Role.class, id);
+        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(Role.class, id);
     }
 
 
     @Override
     public Role getRoleByName(String name) {
-        return HibernateFactorySessionUtil.getSessionFactory().openSession().get(Role.class, name);
+        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(Role.class, name);
     }
 
 
     @Override
     public void deleteRole(Role role) {
-        try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(role);
             transaction.commit();
