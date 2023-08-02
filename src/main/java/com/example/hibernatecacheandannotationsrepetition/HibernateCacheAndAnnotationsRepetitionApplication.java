@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.List;
 
 public class HibernateCacheAndAnnotationsRepetitionApplication {
-    public static void main(String[] args) throws SQLException {
 
         UserDAO userDAO = new UserDAOImpl() {
             @Override

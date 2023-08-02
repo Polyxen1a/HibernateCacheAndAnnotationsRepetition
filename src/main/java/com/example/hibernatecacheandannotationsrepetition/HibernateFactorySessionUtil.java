@@ -19,7 +19,7 @@ public class HibernateFactorySessionUtil {
                         applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
             } catch (Exception e) {
-                System.out.println("Error! " + e);
+                System.out.println("Error! " + e + e.printStackTrace());
                 System.out.println();
             }
         }

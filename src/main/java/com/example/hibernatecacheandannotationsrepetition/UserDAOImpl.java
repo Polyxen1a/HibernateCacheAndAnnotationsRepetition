@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public abstract class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO {
     @Override
     public void create(User user) {
         try (Session session = HibernateFactorySessionUtil.getSessionFactory().openSession();) {
