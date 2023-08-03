@@ -7,12 +7,6 @@ import java.sql.Connection;
 import java.util.List;
 
 public class CityDAOImpl implements CityDAO {
-    private Connection connection;
-
-    public CityDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
-
     @Override
     public void insertCityIntoTable(City city) {
         try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {

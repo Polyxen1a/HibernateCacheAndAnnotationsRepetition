@@ -25,13 +25,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getuserByID(int id) {
-        return null;
+        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
     }
 
     @Override
     public List<User> getUsersByRole(Role role) {
+        return null;
+    }
+
+    @Override
+    public List<User> getUsersByRole() {
         List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("SELECT id FROM User WHERE roles = :role");
+                .openSession().createQuery("SELECT id FROM User WHERE roles = :role").list();
         return users;
     }
 

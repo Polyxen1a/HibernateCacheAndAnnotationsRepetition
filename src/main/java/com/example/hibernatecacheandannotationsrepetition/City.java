@@ -20,7 +20,7 @@ public class City {
     @Column(name = "city_id")
     private int city_id;
 
-    @Column(name = "city_id")
+    @Column(name = "city_name")
     private String city_name;
     public City(String city_name) {
         this.city_name = city_name;

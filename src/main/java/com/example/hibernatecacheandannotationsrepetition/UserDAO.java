@@ -12,6 +12,8 @@ public interface UserDAO {
 
     List<User> getUsersByRole(Role role);
 
+    List<User> getUsersByRole();
+
     List<User> getEveryone();
 
     void updatePersonById(User user);

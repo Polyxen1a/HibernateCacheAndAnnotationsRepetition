@@ -8,10 +8,6 @@ import java.sql.Connection;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
-    private Connection connection;
-    public EmployeeDAOImpl(Connection connection) {
-        this.connection = connection;
-    }
     @Override
     public void insertEmployeeIntoTable(Employee employee) {
         try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {
