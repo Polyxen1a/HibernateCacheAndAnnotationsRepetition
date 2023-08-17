@@ -44,7 +44,8 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getEveryone() {
         List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
                 .openSession().createQuery("FROM User").list();
-
+        List<User> users1 = HibernateSessionFactorySessionUtil.getSessionFactory()
+                .openSession().createQuery("FROM User", User.class).list();
         return users;
     }
 
