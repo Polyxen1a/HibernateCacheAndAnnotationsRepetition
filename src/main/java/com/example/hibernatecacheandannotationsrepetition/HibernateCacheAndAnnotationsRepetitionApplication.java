@@ -1,35 +1,26 @@
 package com.example.hibernatecacheandannotationsrepetition;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateCacheAndAnnotationsRepetitionApplication {
-    public static void main(String[] args) throws SQLException {
-
-        Connection connection = null;
-        final Connection finalConnection = connection;
-        UserDAO userDAO = new UserDAOImpl() {
-            @Override
-            public User getUserByID(int id) {
-                return null;
+    private static SessionFactory sessionFactory;
+    private HibernateCacheAndAnnotationsRepetitionApplication() {
+    }
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration().configure();
+                configuration.addAnnotatedClass(Role.class);
+                configuration.addAnnotatedClass(User.class);
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
+                        applySettings(configuration.getProperties());
+                sessionFactory = configuration.buildSessionFactory(builder.build());
+            } catch (Exception e) {
+                System.out.println("Error! " + e);
             }
-
-            @Override
-            public void addUser(User newUser) {
-                String query = "INSERT INTO users (name, email) VALUES (?, ?)";
-                try (PreparedStatement statement = finalConnection.prepareStatement(query)) {
-                    statement.setString(1, newUser.getName());
-                    statement.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void updateUser(User userToUpdate) {
-
-            }
-        };
+        }
+        return sessionFactory;
     }
 }

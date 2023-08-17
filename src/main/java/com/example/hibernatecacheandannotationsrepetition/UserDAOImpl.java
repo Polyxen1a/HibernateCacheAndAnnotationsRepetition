@@ -4,6 +4,10 @@ package com.example.hibernatecacheandannotationsrepetition;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,19 +28,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getuserByID(int id) {
-        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
-    }
-
-    @Override
     public List<User> getUsersByRole(Role role) {
-        return null;
-    }
-
-    @Override
-    public List<User> getUsersByRole() {
         List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("SELECT id FROM User WHERE roles = :role").list();
+                .openSession().createQuery("SELECT id FROM User WHERE roles = :role");
         return users;
     }
 
@@ -66,20 +60,5 @@ public class UserDAOImpl implements UserDAO {
             session.delete(user);
             transaction.commit();
         }
-    }
-
-    @Override
-    public void addUser(User newUser) {
-
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public void updateUser(User userToUpdate) {
-
     }
 }

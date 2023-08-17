@@ -31,7 +31,7 @@ public class Employee {
         Employee employee = (Employee) o;
         return id == employee.id && age == employee.age && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender);
     }
-    public Employee() {
+    public Employee(String firstName, String lastName, String gender, int age, int cityId) {
     }
     public Employee(String firstName, String lastName, String gender, int age) {
         this.firstName = firstName;
