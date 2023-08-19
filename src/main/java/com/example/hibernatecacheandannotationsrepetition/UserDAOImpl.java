@@ -4,10 +4,6 @@ package com.example.hibernatecacheandannotationsrepetition;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +11,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
     @Override
     public void create(User user) {
-        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -29,19 +25,19 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getUsersByRole(Role role) {
-        List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("SELECT id FROM User WHERE roles = :role");
+        List<User> users = HibernateSessionFactorySessionUtil.getSessionFactory()
+                .openSession().createQuery("SELECT id FROM User WHERE roles = :role").list();
         return users;
     }
 
     @Override
     public List<User> getEveryone() {
-        List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("FROM User").list();
-        List<User> users1 = HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("FROM User", User.class).list();
-        return users;
-    }
+            List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
+                    .openSession().createQuery("FROM User");
+            List<User> user1 = HibernateSessionFactorySessionUtil.getSessionFactory()
+                    .openSession().createQuery("FROM User", User.class).list();
+            return users;
+        }
 
     @Override
     public void updatePersonById(User user) {
@@ -61,4 +57,20 @@ public class UserDAOImpl implements UserDAO {
             transaction.commit();
         }
     }
+
+
+    @Override
+    public void addRole(Role newRole) {
+
+    }
+
+    @Override
+    public List<Role> getAllRoles() {
+
+    }
+    @Override
+    public void updateRole(Role roleToUpdate) {
+
+    }
+
 }

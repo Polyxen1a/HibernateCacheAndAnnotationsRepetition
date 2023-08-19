@@ -10,9 +10,17 @@ public interface UserDAO {
 
     List<User> getUsersByRole(Role role);
 
+    List<User> getUsersByRole();
+
     List<User> getEveryone();
 
     void updatePersonById(User user);
 
     void deleteUser(User user);
+
+    void addUser(User newUser);
+
+    List<User> getAllUsers();
+
+    void updateUser(User userToUpdate);
 }

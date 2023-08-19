@@ -24,9 +24,6 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Role() {
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -51,19 +48,8 @@ public class Role {
         return id == role.id && roleName.equals(role.roleName);
     }
 
-    public List<User> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<User> employees) {
-        this.employees = employees;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, roleName);
-    }
-
-    public void setName(String superuser) {
     }
 }

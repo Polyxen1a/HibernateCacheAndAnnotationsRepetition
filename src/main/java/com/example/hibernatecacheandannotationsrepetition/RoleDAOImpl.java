@@ -8,7 +8,7 @@ import java.util.List;
 public class RoleDAOImpl implements RoleDAO {
     @Override
     public void createNewRole(Role role) {
-        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession();) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(role);
             transaction.commit();
@@ -34,20 +34,16 @@ public class RoleDAOImpl implements RoleDAO {
             session.delete(role);
             transaction.commit();
         }
-    }
+        @Override
+        public void addRole(Role newRole) {
 
-    @Override
-    public void addRole(Role newRole) {
-
-    }
-
-    @Override
-    public List<Role> getAllRoles() {
-        return null;
-    }
-
-    @Override
-    public void updateRole(Role roleToUpdate) {
+        }
+        @Override
+        public List<Role> getAllRoles() {
 
     }
+        @Override
+        public void updateRole(Role roleToUpdate) {
+            
+        }
 }
