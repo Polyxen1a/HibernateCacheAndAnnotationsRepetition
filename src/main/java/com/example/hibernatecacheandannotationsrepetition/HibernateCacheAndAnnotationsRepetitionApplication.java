@@ -1,13 +1,10 @@
 package com.example.hibernatecacheandannotationsrepetition;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.sql.SQLException;
 
-@SpringBootApplication
 public class HibernateCacheAndAnnotationsRepetitionApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(HibernateCacheAndAnnotationsRepetitionApplication.class, args);
-	}
-
+    public static void main(String[] args) throws SQLException {
+        UserDAO userDAO = new UserDAOImpl();
+        RoleDAO roleDAO = new RoleDAOImpl();
+    }
 }
