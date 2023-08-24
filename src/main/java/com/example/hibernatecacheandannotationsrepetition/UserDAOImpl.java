@@ -20,24 +20,34 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByID(int id) {
-        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(User.class, id);
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            return session.get(User.class, id);
+        }
     }
 
     @Override
     public List<User> getUsersByRole(Role role) {
-        List<User> users = HibernateSessionFactorySessionUtil.getSessionFactory()
-                .openSession().createQuery("SELECT id FROM User WHERE roles = :role").list();
-        return users;
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            List<User> users = session.createQuery("SELECT u FROM User u WHERE :role MEMBER OF u.roles", User.class)
+                    .setParameter("role", role)
+                    .list();
+            return users;
+        }
+    }
+
+    @Override
+    public List<User> getUsersByRole() {
+        return null;
     }
 
     @Override
     public List<User> getEveryone() {
-            List<User> users = (List<User>) HibernateSessionFactorySessionUtil.getSessionFactory()
-                    .openSession().createQuery("FROM User");
-            List<User> user1 = HibernateSessionFactorySessionUtil.getSessionFactory()
-                    .openSession().createQuery("FROM User", User.class).list();
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            List<User> users = session.createQuery("FROM User", User.class)
+                    .list();
             return users;
         }
+    }
 
     @Override
     public void updatePersonById(User user) {
@@ -58,19 +68,47 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public void addUser(User newUser) {
+
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User userToUpdate) {
+
+    }
+
 
     @Override
     public void addRole(Role newRole) {
-
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(newRole);
+            transaction.commit();
+        }
     }
 
     @Override
     public List<Role> getAllRoles() {
-
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            List<Role> roles = session.createQuery("FROM Role", Role.class)
+                    .list();
+            return roles;
+        }
     }
+
     @Override
     public void updateRole(Role roleToUpdate) {
-
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.update(roleToUpdate);
+            transaction.commit();
+        }
     }
-
 }
+

@@ -17,15 +17,19 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role getRoleByID(int id) {
-        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(Role.class, id);
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            return session.get(Role.class, id);
+        }
     }
-
 
     @Override
     public Role getRoleByName(String name) {
-        return HibernateSessionFactorySessionUtil.getSessionFactory().openSession().get(Role.class, name);
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Role WHERE name = :name", Role.class)
+                    .setParameter("name", name)
+                    .uniqueResult();
+        }
     }
-
 
     @Override
     public void deleteRole(Role role) {
@@ -34,16 +38,22 @@ public class RoleDAOImpl implements RoleDAO {
             session.delete(role);
             transaction.commit();
         }
-        @Override
-        public void addRole(Role newRole) {
-
-        }
-        @Override
-        public List<Role> getAllRoles() {
-
     }
-        @Override
-        public void updateRole(Role roleToUpdate) {
-            
+
+    @Override
+    public List<Role> getAllRoles() {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Role", Role.class).list();
         }
+    }
+
+    @Override
+    public void updateRole(Role roleToUpdate) {
+        try (Session session = HibernateSessionFactorySessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.update(roleToUpdate);
+            transaction.commit();
+        }
+    }
 }
+

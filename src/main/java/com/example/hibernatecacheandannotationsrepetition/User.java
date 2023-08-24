@@ -2,9 +2,6 @@ package com.example.hibernatecacheandannotationsrepetition;
 
 
 import javax.persistence.*;
-import javax.print.attribute.standard.DateTimeAtCreation;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 

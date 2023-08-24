@@ -23,4 +23,10 @@ public interface UserDAO {
     List<User> getAllUsers();
 
     void updateUser(User userToUpdate);
+
+    void addRole(Role newRole);
+
+    List<Role> getAllRoles();
+
+    void updateRole(Role roleToUpdate);
 }
